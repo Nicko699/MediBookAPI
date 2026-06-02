@@ -44,4 +44,12 @@ public class GlobalExceptionHandler {
 
     }
 
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<ErrorMessage>badRequestException(BadRequestException e){
+
+        ErrorMessage errorMessage=new ErrorMessage(400,HttpStatus.BAD_REQUEST,e.getMessage(),LocalDateTime.now());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
+    }
+
 }
