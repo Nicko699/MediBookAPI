@@ -1,13 +1,21 @@
 package org.medibook.Service;
 
-import org.medibook.Dto.UserRegisterRequestDto;
-import org.medibook.Dto.UserRegisterResponseDto;
+import jakarta.servlet.http.HttpServletResponse;
+import org.medibook.Dto.*;
 import org.medibook.Exception.BadRequestException;
+import org.medibook.Exception.NotFoundException;
 import org.medibook.Model.Rol;
 import org.medibook.Model.User;
 import org.medibook.Repository.RolRepository;
 import org.medibook.Repository.UserRepository;
+import org.medibook.Security.CookieUtils.CookieRefreshTokenUtils;
+import org.medibook.Security.TokenUtils.JwtTokenUtils;
+import org.medibook.Security.TokenUtils.RefreshTokenUtils;
 import org.medibook.mapper.UserMapper;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,12 +31,20 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final RolRepository rolRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
+    private final JwtTokenUtils jwtTokenUtils;
+    private final RefreshTokenUtils refreshTokenUtils;
+    private final CookieRefreshTokenUtils cookie;
 
-    public UserServiceImpl(UserMapper userMapper, UserRepository userRepository, RolRepository rolRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserMapper userMapper, UserRepository userRepository, RolRepository rolRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JwtTokenUtils jwtTokenUtils, RefreshTokenUtils refreshTokenUtils, CookieRefreshTokenUtils cookie) {
         this.userMapper = userMapper;
         this.userRepository = userRepository;
         this.rolRepository = rolRepository;
         this.passwordEncoder = passwordEncoder;
+        this.authenticationManager = authenticationManager;
+        this.jwtTokenUtils = jwtTokenUtils;
+        this.refreshTokenUtils = refreshTokenUtils;
+        this.cookie = cookie;
     }
 
     //Metodo para crear una cuenta de usuario
@@ -68,5 +84,21 @@ public class UserServiceImpl implements UserService {
        User userCreated=userRepository.save(user);
 
         return userMapper.userToUserRegisterResponseDto(userCreated);
+    }
+
+    @Override
+    public UserLoginResponseDto userLogin(HttpServletResponse response, UserLoginRequestDto userLoginRequestDto) throws NotFoundException {
+
+        Authentication authentication=authenticationManager
+                .authenticate(new UsernamePasswordAuthenticationToken(userLoginRequestDto.getEmail(),userLoginRequestDto.getPassword()));
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        String accessToken=jwtTokenUtils.token(authentication);
+        RefreshTokenDto refreshToken=refreshTokenUtils.crearRefreshToken(authentication.getName());
+
+        cookie.createCookieOnly(response,refreshToken.getRefreshTokenId(),refreshToken.getRefreshToken());
+
+        return new UserLoginResponseDto(accessToken,"Bearer ");
     }
 }

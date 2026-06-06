@@ -49,7 +49,7 @@ public class SecurityConfig {
                 .exceptionHandling(exception->exception
                         .authenticationEntryPoint(authenticationEntryPoint).accessDeniedHandler(accessDeniedHandler))
                 .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(authorize->authorize.requestMatchers(HttpMethod.GET,"/***").permitAll().anyRequest().authenticated());
+                .authorizeHttpRequests(authorize->authorize.requestMatchers(HttpMethod.POST,"/api/user/login","/api/user/register").permitAll().anyRequest().authenticated());
 
         httpSecurity.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
 

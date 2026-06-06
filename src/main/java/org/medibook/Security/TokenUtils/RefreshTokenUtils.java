@@ -1,9 +1,11 @@
 package org.medibook.Security.TokenUtils;
 
 import org.medibook.Dto.RefreshTokenDto;
+import org.medibook.Exception.NotFoundException;
 import org.medibook.Model.RefreshToken;
 import org.medibook.Model.User;
 import org.medibook.Repository.RefreshTokenRepository;
+import org.medibook.Repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,15 +19,20 @@ public class RefreshTokenUtils {
 
     private final RefreshTokenRepository refreshTokenRepository;
     private final PasswordEncoder passwordEncoder;
+    private final UserRepository  userRepository;
 
-    public RefreshTokenUtils(RefreshTokenRepository refreshTokenRepository, PasswordEncoder passwordEncoder) {
+    public RefreshTokenUtils(RefreshTokenRepository refreshTokenRepository, PasswordEncoder passwordEncoder, UserRepository userRepository) {
         this.refreshTokenRepository = refreshTokenRepository;
         this.passwordEncoder = passwordEncoder;
+        this.userRepository = userRepository;
     }
 
     //Metodo para crear un refresh token
     @Transactional
-    public RefreshTokenDto crearRefreshToken(User user) {
+    public RefreshTokenDto crearRefreshToken(String email) throws NotFoundException {
+
+        User user=userRepository.findUserByEmail(email).orElseThrow(
+                ()->new NotFoundException("El usuario con el correo: "+email+" no se encuentra registrado en el sistema"));
 
         //Busca los refreshTokens del usuario activos
         List<RefreshToken> refreshTokenList = refreshTokenRepository.findRefreshTokenByUserAndActive(user, true);
