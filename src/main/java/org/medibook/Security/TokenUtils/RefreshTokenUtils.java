@@ -29,7 +29,7 @@ public class RefreshTokenUtils {
 
     //Metodo para crear un refresh token
     @Transactional
-    public RefreshTokenDto crearRefreshToken(String email) throws NotFoundException {
+    public RefreshTokenDto createRefreshToken(String email) throws NotFoundException {
 
         User user=userRepository.findUserByEmail(email).orElseThrow(
                 ()->new NotFoundException("El usuario con el correo: "+email+" no se encuentra registrado en el sistema"));

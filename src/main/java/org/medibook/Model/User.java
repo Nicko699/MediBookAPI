@@ -25,10 +25,13 @@ public class User {
    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<RefreshToken>refreshTokenList;
 
+   @OneToOne
+   private ResetToken resetToken;
+
     public User() {
     }
 
-    public User(Long id, String name, String email, String password, Boolean active, Boolean softDelete, LocalDateTime createdAt, LocalDateTime updatedAt, List<Rol> listRoles, List<RefreshToken> refreshTokenList) {
+    public User(Long id, String name, String email, String password, Boolean active, Boolean softDelete, LocalDateTime createdAt, LocalDateTime updatedAt, List<Rol> listRoles, List<RefreshToken> refreshTokenList, ResetToken resetToken) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -39,6 +42,7 @@ public class User {
         this.updatedAt = updatedAt;
         this.listRoles = listRoles;
         this.refreshTokenList = refreshTokenList;
+        this.resetToken = resetToken;
     }
 
     public Long getId() {
@@ -119,5 +123,13 @@ public class User {
 
     public void setRefreshTokenList(List<RefreshToken> refreshTokenList) {
         this.refreshTokenList = refreshTokenList;
+    }
+
+    public ResetToken getResetToken() {
+        return resetToken;
+    }
+
+    public void setResetToken(ResetToken resetToken) {
+        this.resetToken = resetToken;
     }
 }

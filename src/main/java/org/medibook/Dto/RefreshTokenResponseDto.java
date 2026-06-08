@@ -1,14 +1,14 @@
 package org.medibook.Dto;
 
-public class UserLoginResponseDto {
+public class RefreshTokenResponseDto {
 
     private String accessToken;
     private String typeToken;
 
-    public UserLoginResponseDto() {
+    public RefreshTokenResponseDto() {
     }
 
-    public UserLoginResponseDto(String accessToken, String typeToken) {
+    public RefreshTokenResponseDto(String accessToken, String typeToken) {
         this.accessToken = accessToken;
         this.typeToken = typeToken;
     }

@@ -9,7 +9,7 @@ import org.springframework.util.StringUtils;
 import java.time.Duration;
 
 @Service
-public class CookieRefreshTokenUtils {
+public class CookieUtils {
 
     public void createCookieOnly(HttpServletResponse response, String refreshTokenId, String refreshToken) {
 

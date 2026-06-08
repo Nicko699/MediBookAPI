@@ -8,7 +8,7 @@ import org.medibook.Model.Rol;
 import org.medibook.Model.User;
 import org.medibook.Repository.RolRepository;
 import org.medibook.Repository.UserRepository;
-import org.medibook.Security.CookieUtils.CookieRefreshTokenUtils;
+import org.medibook.Security.CookieUtils.CookieUtils;
 import org.medibook.Security.TokenUtils.JwtTokenUtils;
 import org.medibook.Security.TokenUtils.RefreshTokenUtils;
 import org.medibook.mapper.UserMapper;
@@ -34,9 +34,9 @@ public class UserServiceImpl implements UserService {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenUtils jwtTokenUtils;
     private final RefreshTokenUtils refreshTokenUtils;
-    private final CookieRefreshTokenUtils cookie;
+    private final CookieUtils cookie;
 
-    public UserServiceImpl(UserMapper userMapper, UserRepository userRepository, RolRepository rolRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JwtTokenUtils jwtTokenUtils, RefreshTokenUtils refreshTokenUtils, CookieRefreshTokenUtils cookie) {
+    public UserServiceImpl(UserMapper userMapper, UserRepository userRepository, RolRepository rolRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JwtTokenUtils jwtTokenUtils, RefreshTokenUtils refreshTokenUtils, CookieUtils cookie) {
         this.userMapper = userMapper;
         this.userRepository = userRepository;
         this.rolRepository = rolRepository;
@@ -95,7 +95,7 @@ public class UserServiceImpl implements UserService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String accessToken=jwtTokenUtils.token(authentication);
-        RefreshTokenDto refreshToken=refreshTokenUtils.crearRefreshToken(authentication.getName());
+        RefreshTokenDto refreshToken=refreshTokenUtils.createRefreshToken(authentication.getName());
 
         cookie.createCookieOnly(response,refreshToken.getRefreshTokenId(),refreshToken.getRefreshToken());
 
