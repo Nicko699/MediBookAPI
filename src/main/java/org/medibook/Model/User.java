@@ -25,7 +25,7 @@ public class User {
    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<RefreshToken>refreshTokenList;
 
-   @OneToOne
+   @OneToOne(mappedBy = "user")
    private ResetToken resetToken;
 
     public User() {

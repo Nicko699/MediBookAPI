@@ -27,7 +27,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
         Map<String,Object>message=new HashMap<>();
         //Armamos la estructura del mensaje
-        message.put("typeError",401);
+        message.put("typeError","Unauthorized");
         message.put("status",HttpServletResponse.SC_UNAUTHORIZED);
         message.put("message",authException.getLocalizedMessage());
         message.put("date", Instant.now());

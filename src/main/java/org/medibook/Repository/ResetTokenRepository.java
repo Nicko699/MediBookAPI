@@ -14,5 +14,7 @@ public interface ResetTokenRepository extends JpaRepository<ResetToken,Long> {
 
     void deleteByResetTokenId(String resetTokenId);
 
+    Optional<ResetToken> findByResetTokenId(String resetTokenId);
+
 
 }

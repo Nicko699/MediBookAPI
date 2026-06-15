@@ -1,8 +1,8 @@
 package org.medibook.Service;
 
 import jakarta.servlet.http.HttpServletResponse;
-import org.medibook.Dto.RefreshTokenRequestDto;
-import org.medibook.Dto.RefreshTokenResponseDto;
+import org.medibook.Dto.RefreshTokenDto.RefreshTokenRequestDto;
+import org.medibook.Dto.RefreshTokenDto.RefreshTokenResponseDto;
 import org.medibook.Exception.BadRequestException;
 import org.medibook.Exception.NotFoundException;
 

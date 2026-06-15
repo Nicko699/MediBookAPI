@@ -1,6 +1,6 @@
-package org.medibook.Security.TokenUtils;
+package org.medibook.Utils.TokenUtils;
 
-import org.medibook.Dto.RefreshTokenDto;
+import org.medibook.Dto.RefreshTokenDto.RefreshTokenDto;
 import org.medibook.Exception.NotFoundException;
 import org.medibook.Model.RefreshToken;
 import org.medibook.Model.User;

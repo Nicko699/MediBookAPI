@@ -14,7 +14,7 @@ public class ResetToken {
     private Instant createdAt;
     private Instant expiredAt;
 
-   @OneToOne(mappedBy = "resetToken",cascade = CascadeType.ALL)
+   @OneToOne(cascade = CascadeType.ALL)
     private User user;
 
     public ResetToken() {

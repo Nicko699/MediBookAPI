@@ -13,6 +13,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
+import java.util.List;
+
 //Clase de configuracion de seguridad
 @Configuration
 @EnableWebSecurity
@@ -40,16 +47,48 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+
+    //  BEAN PARA CORS
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+
+        // Conectarse con el frontend
+        configuration.setAllowedOrigins(List.of("http://localhost:5173"));
+
+        // Métodos HTTP permitidos
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT","PATCH", "DELETE", "OPTIONS"));
+
+        // Permitir todos los headers
+        configuration.setAllowedHeaders(List.of("*"));
+
+        // Exponer el header Authorization para que el frontend pueda leerlo
+        configuration.setExposedHeaders(List.of("Authorization"));
+
+        // Permitir credenciales (cookies, authorization headers, etc.)
+        configuration.setAllowCredentials(true);
+
+        // Cache de la configuración preflight por 1 hora
+        configuration.setMaxAge(3600L);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+
+        return source;
+    }
+
     @Bean
   public SecurityFilterChain filterChain(HttpSecurity httpSecurity){
 
-        httpSecurity.csrf(AbstractHttpConfigurer::disable)
+        httpSecurity.cors(cors->cors.configurationSource(corsConfigurationSource()))
+                .csrf(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .exceptionHandling(exception->exception
                         .authenticationEntryPoint(authenticationEntryPoint).accessDeniedHandler(accessDeniedHandler))
                 .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(authorize->authorize.requestMatchers(HttpMethod.POST,"/api/user/login","/api/user/register").permitAll().anyRequest().authenticated());
+                .authorizeHttpRequests(authorize->authorize.requestMatchers(HttpMethod.POST,"/api/user/register", "/api/user/login"
+                        ,"/api/token/refreshAccessToken","/api/token/forgotPassword","/api/token/resetPassword").permitAll().anyRequest().authenticated());
 
         httpSecurity.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
 

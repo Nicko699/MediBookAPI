@@ -1,4 +1,4 @@
-package org.medibook.Security.TokenUtils;
+package org.medibook.Utils.TokenUtils;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;

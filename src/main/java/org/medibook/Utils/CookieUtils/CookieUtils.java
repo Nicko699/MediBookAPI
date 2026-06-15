@@ -1,4 +1,4 @@
-package org.medibook.Security.CookieUtils;
+package org.medibook.Utils.CookieUtils;
 
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpHeaders;

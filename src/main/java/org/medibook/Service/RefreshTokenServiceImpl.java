@@ -1,18 +1,18 @@
 package org.medibook.Service;
 
 import jakarta.servlet.http.HttpServletResponse;
-import org.medibook.Dto.RefreshTokenDto;
-import org.medibook.Dto.RefreshTokenRequestDto;
-import org.medibook.Dto.RefreshTokenResponseDto;
+import org.medibook.Dto.RefreshTokenDto.RefreshTokenDto;
+import org.medibook.Dto.RefreshTokenDto.RefreshTokenRequestDto;
+import org.medibook.Dto.RefreshTokenDto.RefreshTokenResponseDto;
 import org.medibook.Exception.BadRequestException;
 import org.medibook.Exception.NotFoundException;
 import org.medibook.Model.RefreshToken;
 import org.medibook.Model.Rol;
 import org.medibook.Model.User;
 import org.medibook.Repository.RefreshTokenRepository;
-import org.medibook.Security.CookieUtils.CookieUtils;
-import org.medibook.Security.TokenUtils.JwtTokenUtils;
-import org.medibook.Security.TokenUtils.RefreshTokenUtils;
+import org.medibook.Utils.CookieUtils.CookieUtils;
+import org.medibook.Utils.TokenUtils.JwtTokenUtils;
+import org.medibook.Utils.TokenUtils.RefreshTokenUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

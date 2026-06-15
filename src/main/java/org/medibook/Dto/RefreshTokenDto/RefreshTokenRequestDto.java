@@ -1,4 +1,4 @@
-package org.medibook.Dto;
+package org.medibook.Dto.RefreshTokenDto;
 
 import jakarta.validation.constraints.NotBlank;
 

@@ -27,7 +27,7 @@ public class JwtAccessDeniedHandler implements AccessDeniedHandler {
         Map<String,Object>message=new HashMap<>();
 
         //Armamos la estructura del mensaje
-        message.put("typeError",403);
+        message.put("typeError","Forbidden");
         message.put("status",HttpServletResponse.SC_FORBIDDEN);
         message.put("message",accessDeniedException.getLocalizedMessage());
         message.put("date", Instant.now());

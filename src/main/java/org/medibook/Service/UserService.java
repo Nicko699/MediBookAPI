@@ -1,10 +1,10 @@
 package org.medibook.Service;
 
 import jakarta.servlet.http.HttpServletResponse;
-import org.medibook.Dto.UserLoginRequestDto;
-import org.medibook.Dto.UserLoginResponseDto;
-import org.medibook.Dto.UserRegisterRequestDto;
-import org.medibook.Dto.UserRegisterResponseDto;
+import org.medibook.Dto.UserDto.UserLoginRequestDto;
+import org.medibook.Dto.UserDto.UserLoginResponseDto;
+import org.medibook.Dto.UserDto.UserRegisterRequestDto;
+import org.medibook.Dto.UserDto.UserRegisterResponseDto;
 import org.medibook.Exception.BadRequestException;
 import org.medibook.Exception.NotFoundException;
 

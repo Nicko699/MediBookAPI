@@ -1,4 +1,4 @@
-package org.medibook.Dto;
+package org.medibook.Dto.UserDto;
 
 public class UserRegisterResponseDto {
     private Long id;
