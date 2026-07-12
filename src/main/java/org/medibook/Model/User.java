@@ -2,6 +2,7 @@ package org.medibook.Model;
 
 import jakarta.persistence.*;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 @Entity
@@ -14,8 +15,8 @@ public class User {
     private String password;
     private Boolean active;
     private Boolean softDelete;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private Instant createdAt;
+    private Instant updatedAt;
 
     @JoinTable(name = "User_Rol", joinColumns = @JoinColumn(name = "User_id"),
             inverseJoinColumns = @JoinColumn(name = "Rol_id"))
@@ -34,7 +35,7 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String name, String email, String password, Boolean active, Boolean softDelete, LocalDateTime createdAt, LocalDateTime updatedAt, List<Rol> listRoles, List<RefreshToken> refreshTokenList, ResetToken resetToken) {
+    public User(Long id, String name, String email, String password, Boolean active, Boolean softDelete, Instant createdAt, Instant updatedAt, List<Rol> listRoles, List<RefreshToken> refreshTokenList, ResetToken resetToken, Patient patient) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -46,6 +47,7 @@ public class User {
         this.listRoles = listRoles;
         this.refreshTokenList = refreshTokenList;
         this.resetToken = resetToken;
+        this.patient = patient;
     }
 
     public Long getId() {
@@ -96,19 +98,19 @@ public class User {
         this.softDelete = softDelete;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public Instant getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
     }
 
-    public LocalDateTime getUpdatedAt() {
+    public Instant getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(LocalDateTime updatedAt) {
+    public void setUpdatedAt(Instant updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -134,5 +136,13 @@ public class User {
 
     public void setResetToken(ResetToken resetToken) {
         this.resetToken = resetToken;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 }

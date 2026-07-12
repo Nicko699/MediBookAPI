@@ -13,8 +13,6 @@ public interface UserMapper {
 
     UserRegisterResponseDto userToUserRegisterResponseDto(User user);
 
-    User userRegisterUserRequestDtoToUser(UserRegisterUserRequestDto userRegisterUserRequestDto);
-
     UserListResponseDto userToUserListResponseDto(User user);
 
     void updateUserFromDto(UserEditRequestDto userEditRequestDto, @MappingTarget User user);

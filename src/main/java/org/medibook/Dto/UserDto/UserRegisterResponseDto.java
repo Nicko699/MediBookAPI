@@ -6,6 +6,7 @@ public class UserRegisterResponseDto {
     private String email;
     private Boolean active;
 
+
     public UserRegisterResponseDto() {
     }
 
