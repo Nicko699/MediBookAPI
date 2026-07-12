@@ -7,8 +7,7 @@ import org.medibook.Model.User;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
-
-
+    
     User userRegisterRequestDtoToUser(UserRegisterRequestDto userRegisterRequestDto);
 
     UserRegisterResponseDto userToUserRegisterResponseDto(User user);
