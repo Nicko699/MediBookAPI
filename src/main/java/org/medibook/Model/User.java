@@ -28,6 +28,9 @@ public class User {
    @OneToOne(mappedBy = "user")
    private ResetToken resetToken;
 
+   @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+   private Patient patient;
+
     public User() {
     }
 

@@ -29,9 +29,9 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<UserRegisterResponseDto> userRegister(@RequestBody @Valid UserRegisterRequestDto userRegisterRequestDto) throws BadRequestException {
+    public ResponseEntity<UserRegisterResponseDto> userRegisterAdmin(@RequestBody @Valid UserRegisterRequestDto userRegisterRequestDto) throws BadRequestException,NotFoundException {
 
-        UserRegisterResponseDto userRegisterResponseDto=userService.userRegister(userRegisterRequestDto);
+        UserRegisterResponseDto userRegisterResponseDto=userService.userRegisterAdmin(userRegisterRequestDto);
 
         URI location= ServletUriComponentsBuilder
                 .fromCurrentRequest()
