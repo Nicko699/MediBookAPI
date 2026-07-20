@@ -6,7 +6,7 @@ import org.medibook.Dto.MessageResponseDto;
 import org.medibook.Dto.ResetTokenDto.ResetPasswordRequestDto;
 import org.medibook.Exception.BadRequestException;
 import org.medibook.Exception.NotFoundException;
-import org.medibook.Service.ResetTokenService;
+import org.medibook.Service.ResetToken.ResetTokenService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

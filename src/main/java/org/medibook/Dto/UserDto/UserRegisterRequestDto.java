@@ -3,6 +3,7 @@ package org.medibook.Dto.UserDto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import org.medibook.Dto.DoctorDto.DoctorRegisterRequestDto;
 
 import java.util.List;
 
@@ -17,15 +18,17 @@ public class UserRegisterRequestDto {
     private String password;
     @Size(min = 1, message = "debe ingresar al menos 1 rol")
     private List<Long> roleIds;
+    private DoctorRegisterRequestDto doctor;
 
     public UserRegisterRequestDto() {
     }
 
-    public UserRegisterRequestDto(String name, String email, String password, List<Long> roleIds) {
+    public UserRegisterRequestDto(String name, String email, String password, List<Long> roleIds, DoctorRegisterRequestDto doctor) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.roleIds = roleIds;
+        this.doctor = doctor;
     }
 
     public String getName() {
@@ -58,5 +61,13 @@ public class UserRegisterRequestDto {
 
     public void setRoleIds(List<Long> roleIds) {
         this.roleIds = roleIds;
+    }
+
+    public DoctorRegisterRequestDto getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(DoctorRegisterRequestDto doctor) {
+        this.doctor = doctor;
     }
 }

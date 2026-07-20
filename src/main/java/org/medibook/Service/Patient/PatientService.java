@@ -1,4 +1,4 @@
-package org.medibook.Service;
+package org.medibook.Service.Patient;
 
 import org.medibook.Dto.PatientDto.PatientRegisterRequestDto;
 import org.medibook.Dto.PatientDto.PatientRegisterResponseDto;

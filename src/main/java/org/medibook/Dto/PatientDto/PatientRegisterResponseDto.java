@@ -8,23 +8,25 @@ public class PatientRegisterResponseDto {
 
     private Long id;
     private String lastName;
+    private String gender;
     private Long dni;
     private String phoneNumber;
     private LocalDate birthDate;
     private Boolean active;
-    private UserRegisterResponseDto userRegister;
+    private UserRegisterResponseDto user;
 
     public PatientRegisterResponseDto() {
     }
 
-    public PatientRegisterResponseDto(String lastName, LocalDate birthDate, Boolean active, Long id, Long dni, String phoneNumber, UserRegisterResponseDto userRegister) {
-        this.lastName = lastName;
-        this.birthDate = birthDate;
-        this.active = active;
+    public PatientRegisterResponseDto(Long id, String lastName, String gender, Long dni, String phoneNumber, LocalDate birthDate, Boolean active, UserRegisterResponseDto user) {
         this.id = id;
+        this.lastName = lastName;
+        this.gender = gender;
         this.dni = dni;
         this.phoneNumber = phoneNumber;
-        this.userRegister = userRegister;
+        this.birthDate = birthDate;
+        this.active = active;
+        this.user = user;
     }
 
     public Long getId() {
@@ -41,6 +43,14 @@ public class PatientRegisterResponseDto {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public Long getDni() {
@@ -75,11 +85,11 @@ public class PatientRegisterResponseDto {
         this.active = active;
     }
 
-    public UserRegisterResponseDto getUserRegister() {
-        return userRegister;
+    public UserRegisterResponseDto getUser() {
+        return user;
     }
 
-    public void setUserRegister(UserRegisterResponseDto userRegister) {
-        this.userRegister = userRegister;
+    public void setUser(UserRegisterResponseDto user) {
+        this.user = user;
     }
 }

@@ -1,4 +1,4 @@
-package org.medibook.Service;
+package org.medibook.Service.ResetToken;
 
 import org.medibook.Dto.ResetTokenDto.ForgotPasswordRequestDto;
 import org.medibook.Dto.ResetTokenDto.ResetPasswordRequestDto;

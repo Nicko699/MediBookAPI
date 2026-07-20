@@ -6,7 +6,7 @@ import org.medibook.Dto.PatientDto.PatientRegisterRequestDto;
 import org.medibook.Dto.PatientDto.PatientRegisterResponseDto;
 import org.medibook.Model.Patient;
 
-@Mapper(componentModel = "spring", uses = UserMapper.class)
+@Mapper(componentModel = "spring")
 public interface PatientMapper {
 
     Patient patientRegisterRequestDtoToPatient(PatientRegisterRequestDto patientRegisterRequestDto);

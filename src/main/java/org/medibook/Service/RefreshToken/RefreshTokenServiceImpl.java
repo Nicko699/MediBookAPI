@@ -1,4 +1,4 @@
-package org.medibook.Service;
+package org.medibook.Service.RefreshToken;
 
 import jakarta.servlet.http.HttpServletResponse;
 import org.medibook.Dto.RefreshTokenDto.RefreshTokenDto;

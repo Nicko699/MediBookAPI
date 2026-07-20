@@ -2,6 +2,7 @@ package org.medibook.Dto.UserDto;
 
 import org.medibook.Dto.RolDto.RolResponseDto;
 
+import java.time.Instant;
 import java.util.List;
 
 public class UserListResponseDto {
@@ -9,17 +10,21 @@ public class UserListResponseDto {
     private String name;
     private String email;
     private Boolean active;
+    private Instant createdAt;
+    private Instant updatedAt;
 
     private List<RolResponseDto>listRoles;
 
     public UserListResponseDto() {
     }
 
-    public UserListResponseDto(Long id, String name, String email, Boolean active, List<RolResponseDto> listRoles) {
+    public UserListResponseDto(Long id, String name, String email, Boolean active, Instant createdAt, Instant updatedAt, List<RolResponseDto> listRoles) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.active = active;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
         this.listRoles = listRoles;
     }
 
@@ -53,6 +58,22 @@ public class UserListResponseDto {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Instant getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Instant updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     public List<RolResponseDto> getListRoles() {

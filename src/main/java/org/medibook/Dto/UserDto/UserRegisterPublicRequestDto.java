@@ -1,10 +1,13 @@
 package org.medibook.Dto.UserDto;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import org.medibook.Dto.PatientDto.PatientRegisterRequestDto;
 
-public class UserRegisterPatientRequestDto {
+public class UserRegisterPublicRequestDto {
 
     @NotBlank(message = "Debe ingresar un nombre")
     private String name;
@@ -14,14 +17,19 @@ public class UserRegisterPatientRequestDto {
     @Size(min = 8, max = 20, message = "La contraseña debe tener entre 8 a 20 caracteres")
     @NotBlank(message = "Debe ingresar una contraseña")
     private String password;
+    @Valid
+    @NotNull(message = "Debe ingresar los datos del paciente")
+    PatientRegisterRequestDto patient;
 
-    public UserRegisterPatientRequestDto() {
+
+    public UserRegisterPublicRequestDto() {
     }
 
-    public UserRegisterPatientRequestDto(String name, String email, String password) {
+    public UserRegisterPublicRequestDto(String name, String email, String password, PatientRegisterRequestDto patient) {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.patient = patient;
     }
 
     public String getName() {
@@ -46,5 +54,13 @@ public class UserRegisterPatientRequestDto {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public PatientRegisterRequestDto getPatient() {
+        return patient;
+    }
+
+    public void setPatient(PatientRegisterRequestDto patient) {
+        this.patient = patient;
     }
 }

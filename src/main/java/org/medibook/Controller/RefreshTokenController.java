@@ -6,7 +6,7 @@ import org.medibook.Dto.RefreshTokenDto.RefreshTokenRequestDto;
 import org.medibook.Dto.RefreshTokenDto.RefreshTokenResponseDto;
 import org.medibook.Exception.BadRequestException;
 import org.medibook.Exception.NotFoundException;
-import org.medibook.Service.RefreshTokenService;
+import org.medibook.Service.RefreshToken.RefreshTokenService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

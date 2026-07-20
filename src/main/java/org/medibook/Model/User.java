@@ -32,10 +32,13 @@ public class User {
    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
    private Patient patient;
 
+   @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+   private Doctor doctor;
+
     public User() {
     }
 
-    public User(Long id, String name, String email, String password, Boolean active, Boolean softDelete, Instant createdAt, Instant updatedAt, List<Rol> listRoles, List<RefreshToken> refreshTokenList, ResetToken resetToken, Patient patient) {
+    public User(Long id, String name, String email, String password, Boolean active, Boolean softDelete, Instant createdAt, Instant updatedAt, List<Rol> listRoles, List<RefreshToken> refreshTokenList, ResetToken resetToken, Patient patient, Doctor doctor) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -48,6 +51,7 @@ public class User {
         this.refreshTokenList = refreshTokenList;
         this.resetToken = resetToken;
         this.patient = patient;
+        this.doctor = doctor;
     }
 
     public Long getId() {
@@ -144,5 +148,13 @@ public class User {
 
     public void setPatient(Patient patient) {
         this.patient = patient;
+    }
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
     }
 }

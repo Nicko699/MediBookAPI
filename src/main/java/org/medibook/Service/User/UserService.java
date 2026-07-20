@@ -1,8 +1,6 @@
-package org.medibook.Service;
+package org.medibook.Service.User;
 
 import jakarta.servlet.http.HttpServletResponse;
-import org.medibook.Dto.PatientDto.PatientRegisterRequestDto;
-import org.medibook.Dto.PatientDto.PatientRegisterResponseDto;
 import org.medibook.Dto.UserDto.*;
 import org.medibook.Exception.BadRequestException;
 import org.medibook.Exception.NotFoundException;
@@ -13,7 +11,7 @@ public interface UserService {
 
     public UserRegisterResponseDto userRegisterAdmin(UserRegisterRequestDto userRegisterRequestDto) throws BadRequestException, NotFoundException;
 
-    public PatientRegisterResponseDto userRegisterUser(PatientRegisterRequestDto patientRegisterRequestDto) throws BadRequestException,NotFoundException;
+    public UserRegisterPublicResponseDto userRegisterPublic(UserRegisterPublicRequestDto userRegisterPublicRequestDto) throws BadRequestException,NotFoundException;
 
     public UserLoginResponseDto userLogin(HttpServletResponse response, UserLoginRequestDto userLoginRequestDto) throws NotFoundException;
 

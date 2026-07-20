@@ -3,40 +3,40 @@ package org.medibook.Model;
 import jakarta.persistence.*;
 
 import java.time.Instant;
-import java.time.LocalDate;
+
 @Entity
-public class Patient {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class Doctor {
+   @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String lastName;
-    private Long dni;
-    private String gender;
+    private String biography;
+    private Integer yearsOfExperience;
     private String phoneNumber;
-    private LocalDate birthDate;
     private Boolean active;
     private Boolean softDelete;
     private Instant createdAt;
     private Instant updatedAt;
-
-    @OneToOne()
+    @OneToOne
     private User user;
+    @ManyToOne
+    private Speciality speciality;
 
-    public Patient() {
+    public Doctor() {
     }
 
-    public Patient(Long id, String lastName, Long dni, String gender, String phoneNumber, LocalDate birthDate, Boolean active, Boolean softDelete, Instant createdAt, Instant updatedAt, User user) {
+    public Doctor(Long id, String lastName, String biography, Integer yearsOfExperience, String phoneNumber, Boolean active, Boolean softDelete, Instant createdAt, Instant updatedAt, User user, Speciality speciality) {
         this.id = id;
         this.lastName = lastName;
-        this.dni = dni;
-        this.gender = gender;
+        this.biography = biography;
+        this.yearsOfExperience = yearsOfExperience;
         this.phoneNumber = phoneNumber;
-        this.birthDate = birthDate;
         this.active = active;
         this.softDelete = softDelete;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.user = user;
+        this.speciality = speciality;
     }
 
     public Long getId() {
@@ -55,20 +55,20 @@ public class Patient {
         this.lastName = lastName;
     }
 
-    public Long getDni() {
-        return dni;
+    public String getBiography() {
+        return biography;
     }
 
-    public void setDni(Long dni) {
-        this.dni = dni;
+    public void setBiography(String biography) {
+        this.biography = biography;
     }
 
-    public String getGender() {
-        return gender;
+    public Integer getYearsOfExperience() {
+        return yearsOfExperience;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setYearsOfExperience(Integer yearsOfExperience) {
+        this.yearsOfExperience = yearsOfExperience;
     }
 
     public String getPhoneNumber() {
@@ -77,14 +77,6 @@ public class Patient {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public LocalDate getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
     }
 
     public Boolean getActive() {
@@ -125,5 +117,13 @@ public class Patient {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Speciality getSpeciality() {
+        return speciality;
+    }
+
+    public void setSpeciality(Speciality speciality) {
+        this.speciality = speciality;
     }
 }

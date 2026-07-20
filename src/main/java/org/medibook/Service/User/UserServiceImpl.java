@@ -1,7 +1,6 @@
-package org.medibook.Service;
+package org.medibook.Service.User;
 
 import jakarta.servlet.http.HttpServletResponse;
-import org.medibook.Dto.PatientDto.PatientRegisterRequestDto;
 import org.medibook.Dto.PatientDto.PatientRegisterResponseDto;
 import org.medibook.Dto.RefreshTokenDto.RefreshTokenDto;
 import org.medibook.Dto.UserDto.*;
@@ -11,6 +10,8 @@ import org.medibook.Model.Rol;
 import org.medibook.Model.User;
 import org.medibook.Repository.RolRepository;
 import org.medibook.Repository.UserRepository;
+import org.medibook.Service.Doctor.DoctorService;
+import org.medibook.Service.Patient.PatientService;
 import org.medibook.Specifications.UserSpecification;
 import org.medibook.Utils.CookieUtils.CookieUtils;
 import org.medibook.Utils.TokenUtils.JwtTokenUtils;
@@ -29,7 +30,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +38,8 @@ public class UserServiceImpl implements UserService {
 
     @Value("${spring.security.user.role}")
     private String publicRole;
+    @Value("${spring.security.user.doctor.role}")
+    private String doctorRole;
 
     private final UserMapper userMapper;
     private final UserRepository userRepository;
@@ -48,8 +50,9 @@ public class UserServiceImpl implements UserService {
     private final RefreshTokenUtils refreshTokenUtils;
     private final CookieUtils cookie;
     private final PatientService patientService;
+    private final DoctorService doctorService;
 
-    public UserServiceImpl(UserMapper userMapper, UserRepository userRepository, RolRepository rolRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JwtTokenUtils jwtTokenUtils, RefreshTokenUtils refreshTokenUtils, CookieUtils cookie, PatientService patientService) {
+    public UserServiceImpl(UserMapper userMapper, UserRepository userRepository, RolRepository rolRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JwtTokenUtils jwtTokenUtils, RefreshTokenUtils refreshTokenUtils, CookieUtils cookie, PatientService patientService, DoctorService doctorService) {
         this.userMapper = userMapper;
         this.userRepository = userRepository;
         this.rolRepository = rolRepository;
@@ -59,6 +62,7 @@ public class UserServiceImpl implements UserService {
         this.refreshTokenUtils = refreshTokenUtils;
         this.cookie = cookie;
         this.patientService = patientService;
+        this.doctorService = doctorService;
     }
 
     //Metodo para crear una cuenta de usuario
@@ -76,12 +80,20 @@ public class UserServiceImpl implements UserService {
 
         }
 
+         String doctorRoleObtained = "";
+
         List<Rol>listaRoles=new ArrayList<>();
 
         for (Long rolId:userRegisterRequestDto.getRoleIds()){
 
             Rol rol=rolRepository.findById(rolId).orElseThrow(
                     ()->new NotFoundException("El rol con id " + rolId + " no existe en el sistema"));
+
+            if (rol.getName().equals(doctorRole)) {
+
+                doctorRoleObtained=rol.getName();
+
+            }
 
             listaRoles.add(rol);
         }
@@ -95,6 +107,12 @@ public class UserServiceImpl implements UserService {
         user.setUpdatedAt(user.getCreatedAt());
         user.setListRoles(listaRoles);
 
+        if (!doctorRoleObtained.isEmpty()) {
+
+           doctorService.registerDoctor(userRegisterRequestDto.getDoctorRegisterRequestDto(), user);
+
+        }
+
        User userCreated=userRepository.save(user);
 
         return userMapper.userToUserRegisterResponseDto(userCreated);
@@ -102,11 +120,11 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public PatientRegisterResponseDto userRegisterUser(PatientRegisterRequestDto patientRegister ) throws BadRequestException,NotFoundException {
+    public UserRegisterPublicResponseDto userRegisterPublic(UserRegisterPublicRequestDto userRegister) throws BadRequestException,NotFoundException {
 
-        if (userRepository.existsByEmailAndSoftDelete(patientRegister.getUserRegister().getEmail(),false)){
+        if (userRepository.existsByEmailAndSoftDelete(userRegister.getEmail(),false)){
 
-            throw new BadRequestException("El correo "+patientRegister.getUserRegister().getEmail()+" ya está registrado. Intente con otro correo electrónico.");
+            throw new BadRequestException("El correo "+userRegister.getEmail()+" ya está registrado. Intente con otro correo electrónico.");
 
         }
 
@@ -115,10 +133,10 @@ public class UserServiceImpl implements UserService {
 
         User user=new User();
 
-        user.setName(patientRegister.getUserRegister().getName());
-        user.setEmail(patientRegister.getUserRegister().getEmail());
+        user.setName(userRegister.getName());
+        user.setEmail(userRegister.getEmail());
         user.setListRoles(List.of(rol));
-        user.setPassword(passwordEncoder.encode(patientRegister.getUserRegister().getPassword()));
+        user.setPassword(passwordEncoder.encode(userRegister.getPassword()));
         user.setActive(true);
         user.setSoftDelete(false);
         user.setCreatedAt(Instant.now());
@@ -126,7 +144,14 @@ public class UserServiceImpl implements UserService {
 
         userRepository.save(user);
 
-        return patientService.registerPatient(patientRegister,user);
+        PatientRegisterResponseDto patientResponseDto= patientService.registerPatient(userRegister.getPatientRegisterRequestDto(), user);
+
+     UserRegisterPublicResponseDto userRegisteResponse= userMapper.userToUserRegisterPublicResponseDto(user);
+
+     userRegisteResponse.setPatient(patientResponseDto);
+
+     return userRegisteResponse;
+
     }
 
     @Override
