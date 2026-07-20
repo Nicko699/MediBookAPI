@@ -109,7 +109,7 @@ public class UserServiceImpl implements UserService {
 
         if (!doctorRoleObtained.isEmpty()) {
 
-           doctorService.registerDoctor(userRegisterRequestDto.getDoctorRegisterRequestDto(), user);
+           doctorService.registerDoctor(userRegisterRequestDto.getDoctor(), user);
 
         }
 
@@ -144,7 +144,7 @@ public class UserServiceImpl implements UserService {
 
         userRepository.save(user);
 
-        PatientRegisterResponseDto patientResponseDto= patientService.registerPatient(userRegister.getPatientRegisterRequestDto(), user);
+        PatientRegisterResponseDto patientResponseDto= patientService.registerPatient(userRegister.getPatient(), user);
 
      UserRegisterPublicResponseDto userRegisteResponse= userMapper.userToUserRegisterPublicResponseDto(user);
 
