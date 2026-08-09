@@ -19,4 +19,5 @@ public interface UserMapper {
     UserListResponseDto userToUserListResponseDto(User user);
 
     void updateUserFromDto(UserEditRequestDto userEditRequestDto, @MappingTarget User user);
+
 }

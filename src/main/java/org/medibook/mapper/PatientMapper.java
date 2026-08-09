@@ -11,6 +11,5 @@ public interface PatientMapper {
 
     Patient patientRegisterRequestDtoToPatient(PatientRegisterRequestDto patientRegisterRequestDto);
 
-    @Mapping(source = "user", target = "userRegister")
     PatientRegisterResponseDto patientToPatientRegisterResponseDto(Patient patient);
 }

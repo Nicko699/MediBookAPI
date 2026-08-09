@@ -87,7 +87,7 @@ public class SecurityConfig {
                 .exceptionHandling(exception->exception
                         .authenticationEntryPoint(authenticationEntryPoint).accessDeniedHandler(accessDeniedHandler))
                 .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(authorize->authorize.requestMatchers(HttpMethod.POST,"/api/user/register", "/api/user/login","api/user/register/public"
+                .authorizeHttpRequests(authorize->authorize.requestMatchers(HttpMethod.POST,"/api/user/register", "/api/user/login","/api/user/register/public"
                         ,"/api/token/refreshAccessToken","/api/token/forgotPassword","/api/token/resetPassword").permitAll().anyRequest().authenticated());
 
         httpSecurity.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);

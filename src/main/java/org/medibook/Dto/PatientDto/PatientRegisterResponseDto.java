@@ -1,7 +1,5 @@
 package org.medibook.Dto.PatientDto;
 
-import org.medibook.Dto.UserDto.UserRegisterResponseDto;
-
 import java.time.LocalDate;
 
 public class PatientRegisterResponseDto {
@@ -13,12 +11,11 @@ public class PatientRegisterResponseDto {
     private String phoneNumber;
     private LocalDate birthDate;
     private Boolean active;
-    private UserRegisterResponseDto user;
 
     public PatientRegisterResponseDto() {
     }
 
-    public PatientRegisterResponseDto(Long id, String lastName, String gender, Long dni, String phoneNumber, LocalDate birthDate, Boolean active, UserRegisterResponseDto user) {
+    public PatientRegisterResponseDto(Long id, String lastName, String gender, Long dni, String phoneNumber, LocalDate birthDate, Boolean active) {
         this.id = id;
         this.lastName = lastName;
         this.gender = gender;
@@ -26,7 +23,6 @@ public class PatientRegisterResponseDto {
         this.phoneNumber = phoneNumber;
         this.birthDate = birthDate;
         this.active = active;
-        this.user = user;
     }
 
     public Long getId() {
@@ -83,13 +79,5 @@ public class PatientRegisterResponseDto {
 
     public void setActive(Boolean active) {
         this.active = active;
-    }
-
-    public UserRegisterResponseDto getUser() {
-        return user;
-    }
-
-    public void setUser(UserRegisterResponseDto user) {
-        this.user = user;
     }
 }
