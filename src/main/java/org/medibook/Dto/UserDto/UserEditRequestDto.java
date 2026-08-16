@@ -7,6 +7,8 @@ import jakarta.validation.constraints.Size;
 import java.util.List;
 
 public class UserEditRequestDto {
+    @NotBlank(message = "El apellido no puede estar vacío")
+    private String lastName;
     @NotBlank(message = "El nombre no puede estar vacío")
     private String name;
     @NotNull(message = "El estado no puede ser nulo")
@@ -18,10 +20,19 @@ public class UserEditRequestDto {
     public UserEditRequestDto() {
     }
 
-    public UserEditRequestDto(String name, Boolean active, List<Long> rolId) {
+    public UserEditRequestDto(String lastName, String name, Boolean active, List<Long> rolId) {
+        this.lastName = lastName;
         this.name = name;
         this.active = active;
         this.rolId = rolId;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getName() {

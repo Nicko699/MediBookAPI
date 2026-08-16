@@ -1,26 +1,23 @@
 package org.medibook.Dto.UserDto;
 
-import org.medibook.Dto.PatientDto.PatientRegisterResponseDto;
+import org.medibook.Dto.DoctorDto.DoctorProfileResponseDto;
+import org.medibook.Dto.PatientDto.PatientProfileResponseDto;
 
-public class UserRegisterPublicResponseDto {
-
+public class UserProfileResponseDto {
     private Long id;
     private String name;
     private String lastName;
     private String email;
-    private Boolean active;
-    private PatientRegisterResponseDto patient;
+    private PatientProfileResponseDto patient;
+    private DoctorProfileResponseDto doctor;
 
-    public UserRegisterPublicResponseDto() {
-    }
-
-    public UserRegisterPublicResponseDto(Long id, String name, String lastName, String email, Boolean active, PatientRegisterResponseDto patient) {
+    public UserProfileResponseDto(Long id, String name, String lastName, String email, PatientProfileResponseDto patient, DoctorProfileResponseDto doctor) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
         this.email = email;
-        this.active = active;
         this.patient = patient;
+        this.doctor = doctor;
     }
 
     public Long getId() {
@@ -55,19 +52,19 @@ public class UserRegisterPublicResponseDto {
         this.email = email;
     }
 
-    public Boolean getActive() {
-        return active;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
-
-    public PatientRegisterResponseDto getPatient() {
+    public PatientProfileResponseDto getPatient() {
         return patient;
     }
 
-    public void setPatient(PatientRegisterResponseDto patient) {
+    public void setPatient(PatientProfileResponseDto patient) {
         this.patient = patient;
+    }
+
+    public DoctorProfileResponseDto getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(DoctorProfileResponseDto doctor) {
+        this.doctor = doctor;
     }
 }

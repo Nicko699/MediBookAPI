@@ -8,6 +8,7 @@ import java.util.List;
 public class UserListResponseDto {
     private Long id;
     private String name;
+    private String lastName;
     private String email;
     private Boolean active;
     private Instant createdAt;
@@ -18,9 +19,10 @@ public class UserListResponseDto {
     public UserListResponseDto() {
     }
 
-    public UserListResponseDto(Long id, String name, String email, Boolean active, Instant createdAt, Instant updatedAt, List<RolResponseDto> listRoles) {
+    public UserListResponseDto(Long id, String name, String lastName, String email, Boolean active, Instant createdAt, Instant updatedAt, List<RolResponseDto> listRoles) {
         this.id = id;
         this.name = name;
+        this.lastName = lastName;
         this.email = email;
         this.active = active;
         this.createdAt = createdAt;
@@ -42,6 +44,14 @@ public class UserListResponseDto {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {

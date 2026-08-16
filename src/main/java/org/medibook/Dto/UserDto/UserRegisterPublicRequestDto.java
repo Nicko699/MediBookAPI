@@ -11,6 +11,8 @@ public class UserRegisterPublicRequestDto {
 
     @NotBlank(message = "Debe ingresar un nombre")
     private String name;
+    @NotBlank(message = "Debe ingresar un apellido")
+    private String lastName;
     @Email(message = "El correo electrónico debe estar en un formato válido")
     @NotBlank(message = "Debe ingresar un correo electrónico")
     private String email;
@@ -25,8 +27,9 @@ public class UserRegisterPublicRequestDto {
     public UserRegisterPublicRequestDto() {
     }
 
-    public UserRegisterPublicRequestDto(String name, String email, String password, PatientRegisterRequestDto patient) {
+    public UserRegisterPublicRequestDto(String name, String lastName, String email, String password, PatientRegisterRequestDto patient) {
         this.name = name;
+        this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.patient = patient;
@@ -38,6 +41,14 @@ public class UserRegisterPublicRequestDto {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {

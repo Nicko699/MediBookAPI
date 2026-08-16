@@ -3,6 +3,7 @@ package org.medibook.Dto.UserDto;
 public class UserRegisterResponseDto {
     private Long id;
     private String name;
+    private String lastName;
     private String email;
     private Boolean active;
 
@@ -10,9 +11,10 @@ public class UserRegisterResponseDto {
     public UserRegisterResponseDto() {
     }
 
-    public UserRegisterResponseDto(Long id, String name, String email, Boolean active) {
+    public UserRegisterResponseDto(Long id, String name, String lastName, String email, Boolean active) {
         this.id = id;
         this.name = name;
+        this.lastName = lastName;
         this.email = email;
         this.active = active;
     }
@@ -31,6 +33,14 @@ public class UserRegisterResponseDto {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {

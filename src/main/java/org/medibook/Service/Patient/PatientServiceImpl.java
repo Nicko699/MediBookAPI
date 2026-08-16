@@ -1,5 +1,6 @@
 package org.medibook.Service.Patient;
 
+import org.medibook.Dto.PatientDto.PatientProfileResponseDto;
 import org.medibook.Dto.PatientDto.PatientRegisterRequestDto;
 import org.medibook.Dto.PatientDto.PatientRegisterResponseDto;
 import org.medibook.Exception.NotFoundException;
@@ -39,5 +40,15 @@ public class PatientServiceImpl implements PatientService {
 
    return patientMapper.patientToPatientRegisterResponseDto(patient);
 
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public PatientProfileResponseDto getPatientProfile(User user) throws NotFoundException {
+
+        Patient patient=patientRepository.findById(user.getPatient().getId()).orElseThrow(
+                ()->new NotFoundException("Paciente no encontrado en el sistema"));
+
+        return patientMapper.patientToPatientProfileResponseDto(patient);
     }
 }

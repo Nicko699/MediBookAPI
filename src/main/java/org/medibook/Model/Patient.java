@@ -9,7 +9,6 @@ public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String lastName;
     private Long dni;
     private String gender;
     private String phoneNumber;
@@ -25,9 +24,8 @@ public class Patient {
     public Patient() {
     }
 
-    public Patient(Long id, String lastName, Long dni, String gender, String phoneNumber, LocalDate birthDate, Boolean active, Boolean softDelete, Instant createdAt, Instant updatedAt, User user) {
+    public Patient(Long id, Long dni, String gender, String phoneNumber, LocalDate birthDate, Boolean active, Boolean softDelete, Instant createdAt, Instant updatedAt, User user) {
         this.id = id;
-        this.lastName = lastName;
         this.dni = dni;
         this.gender = gender;
         this.phoneNumber = phoneNumber;
@@ -45,14 +43,6 @@ public class Patient {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public Long getDni() {

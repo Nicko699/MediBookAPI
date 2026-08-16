@@ -1,6 +1,7 @@
 package org.medibook.mapper;
 
 import org.mapstruct.Mapper;
+import org.medibook.Dto.DoctorDto.DoctorProfileResponseDto;
 import org.medibook.Dto.DoctorDto.DoctorRegisterRequestDto;
 import org.medibook.Model.Doctor;
 
@@ -9,5 +10,6 @@ public interface DoctorMapper {
 
     Doctor doctorRegisterRequestToDoctor(DoctorRegisterRequestDto doctorRegisterRequestDto);
 
+    DoctorProfileResponseDto doctorToDoctorProfileResponse(Doctor doctor);
 
 }

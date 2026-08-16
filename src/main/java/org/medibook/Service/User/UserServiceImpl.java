@@ -32,6 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -257,6 +258,34 @@ public class UserServiceImpl implements UserService {
         user.setSoftDelete(true);
 
         userRepository.save(user);
+
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public UserProfileResponseDto getMyProfile() throws NotFoundException {
+
+       Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+
+       String userEmail= Objects.requireNonNull(authentication).getName();
+
+       User user=userRepository.findUserByEmail(userEmail).orElseThrow(()->
+               new NotFoundException("El usuario con correo: "+ userEmail +" no se encuentra registrado en el sistema"));
+
+       UserProfileResponseDto userProfileDto=userMapper.userToUserProfileResponseDto(user);
+
+       for (Rol rol:user.getListRoles()){
+
+              if (rol.getName().equals(doctorRole)){
+                 userProfileDto.setDoctor(doctorService.getDoctorProfile(user));
+                }
+
+                if (rol.getName().equals(publicRole)){
+                userProfileDto.setPatient(patientService.getPatientProfile(user));
+                }
+       }
+
+       return userProfileDto;
 
     }
 

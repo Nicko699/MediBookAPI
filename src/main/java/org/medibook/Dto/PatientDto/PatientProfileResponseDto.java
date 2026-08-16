@@ -1,26 +1,23 @@
 package org.medibook.Dto.PatientDto;
-
 import java.time.LocalDate;
 
-public class PatientRegisterResponseDto {
+public class PatientProfileResponseDto {
 
     private Long id;
-    private String gender;
     private Long dni;
+    private String gender;
     private String phoneNumber;
     private LocalDate birthDate;
-    private Boolean active;
 
-    public PatientRegisterResponseDto() {
+    public PatientProfileResponseDto() {
     }
 
-    public PatientRegisterResponseDto(Long id, String gender, Long dni, String phoneNumber, LocalDate birthDate, Boolean active) {
+    public PatientProfileResponseDto(Long id, Long dni, String gender, String phoneNumber, LocalDate birthDate) {
         this.id = id;
-        this.gender = gender;
         this.dni = dni;
+        this.gender = gender;
         this.phoneNumber = phoneNumber;
         this.birthDate = birthDate;
-        this.active = active;
     }
 
     public Long getId() {
@@ -31,20 +28,20 @@ public class PatientRegisterResponseDto {
         this.id = id;
     }
 
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
     public Long getDni() {
         return dni;
     }
 
     public void setDni(Long dni) {
         this.dni = dni;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public String getPhoneNumber() {
@@ -61,13 +58,5 @@ public class PatientRegisterResponseDto {
 
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
-    }
-
-    public Boolean getActive() {
-        return active;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
     }
 }

@@ -9,7 +9,6 @@ public class Doctor {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String lastName;
     private String biography;
     private Integer yearsOfExperience;
     private String phoneNumber;
@@ -25,9 +24,8 @@ public class Doctor {
     public Doctor() {
     }
 
-    public Doctor(Long id, String lastName, String biography, Integer yearsOfExperience, String phoneNumber, Boolean active, Boolean softDelete, Instant createdAt, Instant updatedAt, User user, Speciality speciality) {
+    public Doctor(Long id, String biography, Integer yearsOfExperience, String phoneNumber, Boolean active, Boolean softDelete, Instant createdAt, Instant updatedAt, User user, Speciality speciality) {
         this.id = id;
-        this.lastName = lastName;
         this.biography = biography;
         this.yearsOfExperience = yearsOfExperience;
         this.phoneNumber = phoneNumber;
@@ -45,14 +43,6 @@ public class Doctor {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public String getBiography() {

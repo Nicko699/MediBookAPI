@@ -21,5 +21,7 @@ public interface UserService {
 
     public void deleteUser(Long id) throws NotFoundException, BadRequestException;
 
+    public UserProfileResponseDto getMyProfile() throws NotFoundException;
+
 
 }

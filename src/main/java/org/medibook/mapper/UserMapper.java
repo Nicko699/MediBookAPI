@@ -20,4 +20,6 @@ public interface UserMapper {
 
     void updateUserFromDto(UserEditRequestDto userEditRequestDto, @MappingTarget User user);
 
+    UserProfileResponseDto userToUserProfileResponseDto(User user);
+
 }

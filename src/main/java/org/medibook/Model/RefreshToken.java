@@ -3,7 +3,7 @@ package org.medibook.Model;
 import jakarta.persistence.*;
 
 import java.time.Instant;
-import java.util.UUID;
+
 @Entity
 public class RefreshToken {
     @Id

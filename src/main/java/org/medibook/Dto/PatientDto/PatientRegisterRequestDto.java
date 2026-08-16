@@ -1,13 +1,10 @@
 package org.medibook.Dto.PatientDto;
 
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import java.time.LocalDate;
 
 public class PatientRegisterRequestDto {
 
-    @NotBlank(message = "Debe ingresar un apellido")
-    private String lastName;
     @Positive(message = "El DNI debe ser un número positivo")
     @NotNull(message = "Debe ingresar un DNI")
     private Long dni;
@@ -23,20 +20,11 @@ public class PatientRegisterRequestDto {
     public PatientRegisterRequestDto() {
     }
 
-    public PatientRegisterRequestDto(String lastName, Long dni, String gender, String phoneNumber, LocalDate birthDate) {
-        this.lastName = lastName;
+    public PatientRegisterRequestDto(Long dni, String gender, String phoneNumber, LocalDate birthDate) {
         this.dni = dni;
         this.gender = gender;
         this.phoneNumber = phoneNumber;
         this.birthDate = birthDate;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public Long getDni() {

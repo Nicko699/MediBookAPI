@@ -1,5 +1,7 @@
 package org.medibook.Controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.medibook.Dto.RefreshTokenDto.RefreshTokenRequestDto;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/token")
+@Tag(name = "Refresh-token")
 public class RefreshTokenController {
 
     private final RefreshTokenService refreshTokenService;
@@ -20,6 +23,7 @@ public class RefreshTokenController {
         this.refreshTokenService = refreshTokenService;
     }
 
+    @Operation(summary = "Refresh access token")
     @PostMapping("/refreshAccessToken")
     public ResponseEntity<RefreshTokenResponseDto> RefreshAccessToken(HttpServletResponse response,@RequestBody @Valid RefreshTokenRequestDto refreshTokenRequestDto) throws BadRequestException, NotFoundException{
 

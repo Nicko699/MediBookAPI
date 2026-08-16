@@ -1,5 +1,6 @@
 package org.medibook.Service.Doctor;
 
+import org.medibook.Dto.DoctorDto.DoctorProfileResponseDto;
 import org.medibook.Dto.DoctorDto.DoctorRegisterRequestDto;
 import org.medibook.Exception.NotFoundException;
 import org.medibook.Model.Doctor;
@@ -8,6 +9,7 @@ import org.medibook.Repository.DoctorRepository;
 import org.medibook.Repository.SpecialityRepository;
 import org.medibook.mapper.DoctorMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.time.Instant;
@@ -45,6 +47,16 @@ public class DoctorServiceImpl implements DoctorService {
 
         doctorRepository.save(doctor);
 
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public DoctorProfileResponseDto getDoctorProfile(User user) throws NotFoundException {
+
+        Doctor doctor=doctorRepository.findById(user.getDoctor().getId()).orElseThrow(
+                ()->new NotFoundException("Doctor no encontrado en el sistema"));
+
+        return doctorMapper.doctorToDoctorProfileResponse(doctor);
     }
 
 }

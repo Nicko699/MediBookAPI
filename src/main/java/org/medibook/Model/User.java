@@ -11,6 +11,7 @@ public class User {
    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String lastName;
     private String email;
     private String password;
     private Boolean active;
@@ -38,9 +39,10 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String name, String email, String password, Boolean active, Boolean softDelete, Instant createdAt, Instant updatedAt, List<Rol> listRoles, List<RefreshToken> refreshTokenList, ResetToken resetToken, Patient patient, Doctor doctor) {
+    public User(Long id, String name, String lastName, String email, String password, Boolean active, Boolean softDelete, Instant createdAt, Instant updatedAt, List<Rol> listRoles, List<RefreshToken> refreshTokenList, ResetToken resetToken, Patient patient, Doctor doctor) {
         this.id = id;
         this.name = name;
+        this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.active = active;
@@ -68,6 +70,14 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {

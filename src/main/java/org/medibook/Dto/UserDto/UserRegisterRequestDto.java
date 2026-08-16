@@ -10,6 +10,8 @@ import java.util.List;
 public class UserRegisterRequestDto {
     @NotBlank(message = "Debe ingresar un nombre")
     private String name;
+    @NotBlank(message = "Debe ingresar un apellido")
+    private String lastName;
     @Email(message = "El correo electrónico debe estar en un formato válido")
     @NotBlank(message = "Debe ingresar un correo electrónico")
     private String email;
@@ -23,8 +25,9 @@ public class UserRegisterRequestDto {
     public UserRegisterRequestDto() {
     }
 
-    public UserRegisterRequestDto(String name, String email, String password, List<Long> roleIds, DoctorRegisterRequestDto doctor) {
+    public UserRegisterRequestDto(String name, String lastName, String email, String password, List<Long> roleIds, DoctorRegisterRequestDto doctor) {
         this.name = name;
+        this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.roleIds = roleIds;
@@ -37,6 +40,14 @@ public class UserRegisterRequestDto {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
