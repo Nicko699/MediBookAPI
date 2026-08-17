@@ -1,5 +1,7 @@
 package org.medibook.Utils.CookieUtils;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
@@ -38,4 +40,20 @@ public class CookieUtils {
 
             response.addHeader(HttpHeaders.SET_COOKIE,responseCookie2.toString());
         }
-}}
+}
+
+    public String getCookieValue(HttpServletRequest request, String cookieName) {
+
+        if (request.getCookies() == null) {
+            return null;
+        }
+
+        for (Cookie cookie : request.getCookies()) {
+
+            if (cookie.getName().equals(cookieName)) {
+                return cookie.getValue();
+            }
+        }
+
+        return null;
+    }}

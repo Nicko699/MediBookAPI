@@ -1,8 +1,8 @@
 package org.medibook.Service.RefreshToken;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.medibook.Dto.RefreshTokenDto.RefreshTokenDto;
-import org.medibook.Dto.RefreshTokenDto.RefreshTokenRequestDto;
 import org.medibook.Dto.RefreshTokenDto.RefreshTokenResponseDto;
 import org.medibook.Exception.BadRequestException;
 import org.medibook.Exception.NotFoundException;
@@ -40,16 +40,19 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
 
     @Transactional
     @Override
-    public RefreshTokenResponseDto RefreshAccessToken(HttpServletResponse response, RefreshTokenRequestDto refreshTokenRequestDto) throws BadRequestException, NotFoundException {
+    public RefreshTokenResponseDto RefreshAccessToken(HttpServletRequest request, HttpServletResponse response) throws BadRequestException, NotFoundException {
+
+        String refreshTokenIdCookie = cookieUtils.getCookieValue(request, "refreshTokenId");
+
+        String refreshTokenCookie = cookieUtils.getCookieValue(request, "refreshToken");
 
         RefreshToken refreshToken=refreshTokenRepository
-                .findByRefreshTokenIdAndActiveTrue(refreshTokenRequestDto.getRefreshTokenId(),true)
-                .orElseThrow(()->new NotFoundException("El refresh token con el Id: "+refreshTokenRequestDto
-                        .getRefreshTokenId()+" está inactivo o no se encuentra en el sistema"));
+                .findByRefreshTokenIdAndActiveTrue(refreshTokenIdCookie,true)
+                .orElseThrow(()->new NotFoundException("El refresh token con el Id: "+refreshTokenIdCookie
+                        +" está inactivo o no se encuentra en el sistema"));
 
     boolean  tokenMatches=passwordEncoder
-            .matches(refreshTokenRequestDto
-                    .getRefreshToken(),refreshToken.getRefreshTokenEncript());
+            .matches(refreshTokenCookie,refreshToken.getRefreshTokenEncript());
 
     boolean tokenExpired=refreshToken.getExpiredAt().isBefore(Instant.now());
 

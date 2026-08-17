@@ -4,7 +4,7 @@ import java.time.LocalDate;
 public class PatientProfileResponseDto {
 
     private Long id;
-    private Long dni;
+    private String dni;
     private String gender;
     private String phoneNumber;
     private LocalDate birthDate;
@@ -12,7 +12,7 @@ public class PatientProfileResponseDto {
     public PatientProfileResponseDto() {
     }
 
-    public PatientProfileResponseDto(Long id, Long dni, String gender, String phoneNumber, LocalDate birthDate) {
+    public PatientProfileResponseDto(Long id, String dni, String gender, String phoneNumber, LocalDate birthDate) {
         this.id = id;
         this.dni = dni;
         this.gender = gender;
@@ -28,11 +28,11 @@ public class PatientProfileResponseDto {
         this.id = id;
     }
 
-    public Long getDni() {
+    public String getDni() {
         return dni;
     }
 
-    public void setDni(Long dni) {
+    public void setDni(String dni) {
         this.dni = dni;
     }
 

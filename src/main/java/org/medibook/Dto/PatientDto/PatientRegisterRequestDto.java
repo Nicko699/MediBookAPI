@@ -7,7 +7,8 @@ public class PatientRegisterRequestDto {
 
     @Positive(message = "El DNI debe ser un número positivo")
     @NotNull(message = "Debe ingresar un DNI")
-    private Long dni;
+    @Size(min = 5, max = 20, message = "El DNI debe tener entre 5 y 20 caracteres")
+    private String dni;
     @NotBlank(message = "Debe ingresar un género")
     private String gender;
     @Pattern(regexp = "\\d{10}", message = "El número de teléfono debe contener solo dígitos")
@@ -20,18 +21,18 @@ public class PatientRegisterRequestDto {
     public PatientRegisterRequestDto() {
     }
 
-    public PatientRegisterRequestDto(Long dni, String gender, String phoneNumber, LocalDate birthDate) {
+    public PatientRegisterRequestDto(String dni, String gender, String phoneNumber, LocalDate birthDate) {
         this.dni = dni;
         this.gender = gender;
         this.phoneNumber = phoneNumber;
         this.birthDate = birthDate;
     }
 
-    public Long getDni() {
+    public String getDni() {
         return dni;
     }
 
-    public void setDni(Long dni) {
+    public void setDni(String dni) {
         this.dni = dni;
     }
 

@@ -2,9 +2,8 @@ package org.medibook.Controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.Valid;
-import org.medibook.Dto.RefreshTokenDto.RefreshTokenRequestDto;
 import org.medibook.Dto.RefreshTokenDto.RefreshTokenResponseDto;
 import org.medibook.Exception.BadRequestException;
 import org.medibook.Exception.NotFoundException;
@@ -25,9 +24,9 @@ public class RefreshTokenController {
 
     @Operation(summary = "Refresh access token")
     @PostMapping("/refreshAccessToken")
-    public ResponseEntity<RefreshTokenResponseDto> RefreshAccessToken(HttpServletResponse response,@RequestBody @Valid RefreshTokenRequestDto refreshTokenRequestDto) throws BadRequestException, NotFoundException{
+    public ResponseEntity<RefreshTokenResponseDto> RefreshAccessToken (HttpServletRequest request, HttpServletResponse response) throws BadRequestException, NotFoundException{
 
-        RefreshTokenResponseDto refreshTokenResponseDto=refreshTokenService.RefreshAccessToken(response, refreshTokenRequestDto);
+        RefreshTokenResponseDto refreshTokenResponseDto=refreshTokenService.RefreshAccessToken(request, response);
 
         return ResponseEntity.status(HttpServletResponse.SC_CREATED).body(refreshTokenResponseDto);
 

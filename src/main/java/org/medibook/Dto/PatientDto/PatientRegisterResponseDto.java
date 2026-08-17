@@ -6,7 +6,7 @@ public class PatientRegisterResponseDto {
 
     private Long id;
     private String gender;
-    private Long dni;
+    private String dni;
     private String phoneNumber;
     private LocalDate birthDate;
     private Boolean active;
@@ -14,7 +14,7 @@ public class PatientRegisterResponseDto {
     public PatientRegisterResponseDto() {
     }
 
-    public PatientRegisterResponseDto(Long id, String gender, Long dni, String phoneNumber, LocalDate birthDate, Boolean active) {
+    public PatientRegisterResponseDto(Long id, String gender, String dni, String phoneNumber, LocalDate birthDate, Boolean active) {
         this.id = id;
         this.gender = gender;
         this.dni = dni;
@@ -39,11 +39,11 @@ public class PatientRegisterResponseDto {
         this.gender = gender;
     }
 
-    public Long getDni() {
+    public String getDni() {
         return dni;
     }
 
-    public void setDni(Long dni) {
+    public void setDni(String dni) {
         this.dni = dni;
     }
 
