@@ -1,5 +1,6 @@
 package org.medibook.Service.Patient;
 
+import org.medibook.Dto.PatientDto.PatientProfileEditRequestDto;
 import org.medibook.Dto.PatientDto.PatientProfileResponseDto;
 import org.medibook.Dto.PatientDto.PatientRegisterRequestDto;
 import org.medibook.Dto.PatientDto.PatientRegisterResponseDto;
@@ -50,5 +51,19 @@ public class PatientServiceImpl implements PatientService {
                 ()->new NotFoundException("Paciente no encontrado en el sistema"));
 
         return patientMapper.patientToPatientProfileResponseDto(patient);
+    }
+
+   @Transactional
+    @Override
+    public void updatePatientProfile(PatientProfileEditRequestDto patientProfileEditRequestDto, User user) throws NotFoundException {
+
+        Patient patient=patientRepository.findById(user.getPatient().getId()).orElseThrow(
+                ()->new NotFoundException("Paciente no encontrado en el sistema"));
+
+        patientMapper.updatePatientFromPatientProfileEditRequestDto(patientProfileEditRequestDto,patient);
+
+        patient.setUpdatedAt(Instant.now());
+
+        patientRepository.save(patient);
     }
 }

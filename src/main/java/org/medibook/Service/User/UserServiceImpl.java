@@ -1,6 +1,7 @@
 package org.medibook.Service.User;
 
 import jakarta.servlet.http.HttpServletResponse;
+import org.medibook.Dto.DoctorDto.DoctorProfileResponseDto;
 import org.medibook.Dto.PatientDto.PatientRegisterResponseDto;
 import org.medibook.Dto.RefreshTokenDto.RefreshTokenDto;
 import org.medibook.Dto.UserDto.*;
@@ -286,6 +287,44 @@ public class UserServiceImpl implements UserService {
        }
 
        return userProfileDto;
+
+    }
+    @Transactional
+    @Override
+    public void updateMyProfile(UserProfileEditRequestDto userProfileEditRequestDto) throws NotFoundException, BadRequestException {
+
+        Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+
+        String userEmail= Objects.requireNonNull(authentication).getName();
+
+        User user=userRepository.findUserByEmail(userEmail).orElseThrow(()->
+                new NotFoundException("El usuario con correo: "+ userEmail +" no se encuentra registrado en el sistema"));
+
+        if (userProfileEditRequestDto.getNewPassword() != null && !userProfileEditRequestDto.getNewPassword().isBlank()) {
+            boolean isPasswordEqual = passwordEncoder.matches(userProfileEditRequestDto.getOldPassword(), user.getPassword());
+
+            if (!isPasswordEqual) {
+                throw new BadRequestException("La contraseña actual ingresada no coincide...");
+            }
+            user.setPassword(passwordEncoder.encode(userProfileEditRequestDto.getNewPassword()));
+        }
+
+        userMapper.userProfileEditRequestDtoToUser(userProfileEditRequestDto,user);
+
+        for (Rol rol : user.getListRoles()) {
+
+            if (rol.getName().equals(doctorRole) && userProfileEditRequestDto.getDoctorProfileEditRequestDto() != null){
+                doctorService.updateDoctorProfile(userProfileEditRequestDto.getDoctorProfileEditRequestDto(), user);
+            }
+
+            if (rol.getName().equals(publicRole) && userProfileEditRequestDto.getPatientProfileEditRequestDto() != null){
+                patientService.updatePatientProfile(userProfileEditRequestDto.getPatientProfileEditRequestDto(), user);
+            }
+        }
+
+        user.setUpdatedAt(Instant.now());
+
+        userRepository.save(user);
 
     }
 

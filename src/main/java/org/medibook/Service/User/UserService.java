@@ -23,5 +23,8 @@ public interface UserService {
 
     public UserProfileResponseDto getMyProfile() throws NotFoundException;
 
+   public void updateMyProfile(UserProfileEditRequestDto userProfileEditRequestDto) throws NotFoundException, BadRequestException;
+
+
 
 }

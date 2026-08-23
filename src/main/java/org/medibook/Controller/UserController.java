@@ -95,6 +95,7 @@ public class UserController {
         return ResponseEntity.noContent().build();
 
     }
+
     @Operation(summary = "Get my profile")
     @GetMapping("/profile")
     public ResponseEntity<UserProfileResponseDto> getMyProfile() throws NotFoundException{
@@ -103,6 +104,15 @@ public class UserController {
 
         return ResponseEntity.ok(userProfileDto);
 
+    }
+
+    @Operation(summary = "Update my profile")
+    @PutMapping("/profile")
+    public ResponseEntity<Void> updateMyProfile(UserProfileEditRequestDto userProfileEditRequestDto) throws NotFoundException, BadRequestException{
+
+        userService.updateMyProfile(userProfileEditRequestDto);
+
+        return ResponseEntity.noContent().build();
     }
 
 }

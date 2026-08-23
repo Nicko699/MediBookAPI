@@ -1,5 +1,6 @@
 package org.medibook.Service.Doctor;
 
+import org.medibook.Dto.DoctorDto.DoctorProfileEditRequestDto;
 import org.medibook.Dto.DoctorDto.DoctorProfileResponseDto;
 import org.medibook.Dto.DoctorDto.DoctorRegisterRequestDto;
 import org.medibook.Exception.NotFoundException;
@@ -57,6 +58,20 @@ public class DoctorServiceImpl implements DoctorService {
                 ()->new NotFoundException("Doctor no encontrado en el sistema"));
 
         return doctorMapper.doctorToDoctorProfileResponse(doctor);
+    }
+
+    @Transactional
+    @Override
+    public void updateDoctorProfile(DoctorProfileEditRequestDto doctorProfileEditRequestDto, User user) throws NotFoundException {
+
+        Doctor doctor=doctorRepository.findById(user.getDoctor().getId()).orElseThrow(
+                ()->new NotFoundException("Doctor no encontrado en el sistema"));
+
+        doctorMapper.updateDoctorProfileFromRequest(doctorProfileEditRequestDto,doctor);
+
+        doctor.setUpdatedAt(Instant.now());
+
+        doctorRepository.save(doctor);
     }
 
 }

@@ -1,5 +1,6 @@
 package org.medibook.Service.Patient;
 
+import org.medibook.Dto.PatientDto.PatientProfileEditRequestDto;
 import org.medibook.Dto.PatientDto.PatientProfileResponseDto;
 import org.medibook.Dto.PatientDto.PatientRegisterRequestDto;
 import org.medibook.Dto.PatientDto.PatientRegisterResponseDto;
@@ -11,5 +12,7 @@ public interface PatientService {
     public PatientRegisterResponseDto registerPatient(PatientRegisterRequestDto patientRegisterRequestDto, User user) throws NotFoundException;
 
     public PatientProfileResponseDto getPatientProfile(User user) throws NotFoundException;
+
+    public void updatePatientProfile(PatientProfileEditRequestDto patientProfileEditRequestDto, User user) throws NotFoundException;
 
 }

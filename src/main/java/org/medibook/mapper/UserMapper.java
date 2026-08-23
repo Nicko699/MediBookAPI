@@ -22,4 +22,7 @@ public interface UserMapper {
 
     UserProfileResponseDto userToUserProfileResponseDto(User user);
 
+    @Mapping(source = "newPassword", target = "password")
+    void userProfileEditRequestDtoToUser(UserProfileEditRequestDto userProfileEditRequestDto, @MappingTarget User user);
+
 }
