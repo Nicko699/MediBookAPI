@@ -1,14 +1,16 @@
 package org.medibook.Service.Doctor;
 
-import org.medibook.Dto.DoctorDto.DoctorProfileEditRequestDto;
-import org.medibook.Dto.DoctorDto.DoctorProfileResponseDto;
-import org.medibook.Dto.DoctorDto.DoctorRegisterRequestDto;
+import org.medibook.Dto.DoctorDto.*;
 import org.medibook.Exception.NotFoundException;
 import org.medibook.Model.Doctor;
 import org.medibook.Model.User;
 import org.medibook.Repository.DoctorRepository;
 import org.medibook.Repository.SpecialityRepository;
+import org.medibook.Specifications.DoctorSpecification;
 import org.medibook.mapper.DoctorMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -54,7 +56,7 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public DoctorProfileResponseDto getDoctorProfile(User user) throws NotFoundException {
 
-        Doctor doctor=doctorRepository.findById(user.getDoctor().getId()).orElseThrow(
+        Doctor doctor=doctorRepository.findByIdAndSoftDeleteFalse(user.getDoctor().getId()).orElseThrow(
                 ()->new NotFoundException("Doctor no encontrado en el sistema"));
 
         return doctorMapper.doctorToDoctorProfileResponse(doctor);
@@ -64,7 +66,7 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public void updateDoctorProfile(DoctorProfileEditRequestDto doctorProfileEditRequestDto, User user) throws NotFoundException {
 
-        Doctor doctor=doctorRepository.findById(user.getDoctor().getId()).orElseThrow(
+        Doctor doctor=doctorRepository.findByIdAndSoftDeleteFalse(user.getDoctor().getId()).orElseThrow(
                 ()->new NotFoundException("Doctor no encontrado en el sistema"));
 
         doctorMapper.updateDoctorProfileFromRequest(doctorProfileEditRequestDto,doctor);
@@ -72,6 +74,37 @@ public class DoctorServiceImpl implements DoctorService {
         doctor.setUpdatedAt(Instant.now());
 
         doctorRepository.save(doctor);
+    }
+
+    @Transactional
+    @Override
+    public void updateDoctor(Long id, DoctorEditRequestDto doctorEditRequestDto) throws NotFoundException {
+
+        Doctor doctor=doctorRepository.findByIdAndSoftDeleteFalse(id).orElseThrow(
+                ()->new NotFoundException("Doctor no encontrado en el sistema"));
+
+        doctorMapper.updateDoctorRequestDtoToDoctor(doctorEditRequestDto,doctor);
+
+        doctor.setUpdatedAt(Instant.now());
+        doctor.getUser().setUpdatedAt(Instant.now());
+
+        doctorRepository.save(doctor);
+
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Page<DoctorListResponseDto> getAllDoctors(String name, String lastName, String speciality, Pageable pageable) {
+
+        Specification<Doctor> spec = Specification.allOf(DoctorSpecification.noDeleted()
+                .and(DoctorSpecification.nameLike(name)
+                        .and(DoctorSpecification.lastNameLike(lastName)
+                                .and(DoctorSpecification.specialityLike(speciality)))));
+
+        Page<Doctor> doctors = doctorRepository.findAll(spec, pageable);
+
+        return doctors.map(doctorMapper::doctorToDoctorListResponseDto);
+
     }
 
 }

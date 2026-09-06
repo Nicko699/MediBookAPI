@@ -3,10 +3,7 @@ package org.medibook.mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
-import org.medibook.Dto.PatientDto.PatientProfileEditRequestDto;
-import org.medibook.Dto.PatientDto.PatientProfileResponseDto;
-import org.medibook.Dto.PatientDto.PatientRegisterRequestDto;
-import org.medibook.Dto.PatientDto.PatientRegisterResponseDto;
+import org.medibook.Dto.PatientDto.*;
 import org.medibook.Model.Patient;
 
 @Mapper(componentModel = "spring")
@@ -20,4 +17,10 @@ public interface PatientMapper {
 
     @Mapping(target = "user", ignore = true)
     void updatePatientFromPatientProfileEditRequestDto(PatientProfileEditRequestDto patientProfileEditRequestDto, @MappingTarget Patient patient);
+
+    void updatePatientRequestDtoToPatient(PatientProfileEditRequestDto patientProfileEditRequestDto, @MappingTarget Patient patient);
+
+    PatientListResponseDto patientToPatientListResponseDto(Patient patient);
+
+
 }

@@ -4,8 +4,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
-import org.medibook.Dto.PatientDto.PatientRegisterRequestDto;
-import org.medibook.Dto.PatientDto.PatientRegisterResponseDto;
 import org.medibook.Dto.UserDto.*;
 import org.medibook.Exception.BadRequestException;
 import org.medibook.Exception.NotFoundException;
@@ -68,6 +66,7 @@ public class UserController {
 
         return ResponseEntity.ok(userLoginResponseDto);
         }
+
     @Operation(summary = "Get all users with optional filters")
     @GetMapping("/filter")
     public ResponseEntity<Page<UserListResponseDto>> getAllUsers(@RequestParam(required = false)  String name, @RequestParam(required = false) Boolean active,@RequestParam(required = false) String rol, Pageable pageable) throws NotFoundException{
