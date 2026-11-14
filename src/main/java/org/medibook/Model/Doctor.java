@@ -1,10 +1,12 @@
 package org.medibook.Model;
 
 import jakarta.persistence.*;
+import org.medibook.Listener.AuditEntityListener;
 
 import java.time.Instant;
 
 @Entity
+@EntityListeners(AuditEntityListener.class)
 public class Doctor {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)

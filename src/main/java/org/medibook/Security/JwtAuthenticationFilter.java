@@ -28,19 +28,21 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
 
-    public String obtenerBearerToken(HttpServletRequest request){
+        public String obtenerBearerToken(HttpServletRequest request){
 
-        //Obtenemos el bearer token de la cabecera
-        String bearerToken=request.getHeader("Authorization");
+        String bearerToken = request.getHeader("Authorization");
 
-       //Validamos que el bearer token no venga vacio, null y que empiece con el prefijo bearer
-        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")){
-
-       //Retornamos el token desde la cadena número 7, omitiendo el bearer más un espacio
-            return bearerToken.substring(7);
+        if (!StringUtils.hasText(bearerToken)) {
+            return null;
         }
 
-        return null;
+        String normalizedToken = bearerToken.trim();
+
+        while (normalizedToken.regionMatches(true, 0, "Bearer ", 0, 7)) {
+            normalizedToken = normalizedToken.substring(7).trim();
+        }
+
+        return StringUtils.hasText(normalizedToken) ? normalizedToken : null;
     }
 
     @Override

@@ -22,16 +22,17 @@ public class OpenApiConfig {
                             .description("API para la gestión de citas médicas"))
                     .components(new Components()
                             .addSecuritySchemes(
-                                    "bearer-key",
+                                    "bearerAuth",
                                     new SecurityScheme()
                                             .type(SecurityScheme.Type.HTTP)
                                             .scheme("bearer")
                                             .bearerFormat("JWT")
+                                            .in(SecurityScheme.In.HEADER)
+                                            .name("Authorization")
                             )
                     )
                     .addSecurityItem(
-                            new SecurityRequirement()
-                                    .addList("bearer-key")
+                            new SecurityRequirement().addList("bearerAuth")
                     );
         }
 }

@@ -1,11 +1,13 @@
 package org.medibook.Model;
 
 import jakarta.persistence.*;
+import org.medibook.Listener.AuditEntityListener;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
 @Entity
+@EntityListeners(AuditEntityListener.class)
 public class User {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)

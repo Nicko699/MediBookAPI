@@ -8,6 +8,7 @@ import org.medibook.Dto.UserDto.*;
 import org.medibook.Exception.BadRequestException;
 import org.medibook.Exception.NotFoundException;
 import org.medibook.Service.User.UserService;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -69,7 +70,7 @@ public class UserController {
 
     @Operation(summary = "Get all users with optional filters")
     @GetMapping("/filter")
-    public ResponseEntity<Page<UserListResponseDto>> getAllUsers(@RequestParam(required = false)  String name, @RequestParam(required = false) Boolean active,@RequestParam(required = false) String rol, Pageable pageable) throws NotFoundException{
+    public ResponseEntity<Page<UserListResponseDto>> getAllUsers(@RequestParam(required = false)  String name, @RequestParam(required = false) Boolean active,@RequestParam(required = false) String rol, @ParameterObject Pageable pageable) throws NotFoundException{
 
         Page<UserListResponseDto>userListResponse=userService.getAllUsers(name,active,rol,pageable);
 

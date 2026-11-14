@@ -7,6 +7,7 @@ import org.medibook.Dto.DoctorDto.DoctorEditRequestDto;
 import org.medibook.Dto.DoctorDto.DoctorListResponseDto;
 import org.medibook.Exception.NotFoundException;
 import org.medibook.Service.Doctor.DoctorService;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +35,7 @@ public class DoctorController {
 
     @Operation(summary = "Get all doctors with filters")
     @GetMapping("/list")
-    public ResponseEntity<Page<DoctorListResponseDto>> getAllDoctors(@RequestParam(required = false)  String name,@RequestParam(required = false)  String lastName, @RequestParam(required = false) String speciality, Pageable pageable){
+    public ResponseEntity<Page<DoctorListResponseDto>> getAllDoctors(@RequestParam(required = false)  String name,@RequestParam(required = false)  String lastName, @RequestParam(required = false) String speciality, @ParameterObject Pageable pageable){
 
         Page<DoctorListResponseDto> doctors=doctorService.getAllDoctors(name,lastName,speciality,pageable);
 
